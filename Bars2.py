@@ -17,21 +17,20 @@ class Block:
 
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if e.button == 1:
-                self.collidePoint()
+            if event.button == 1:
+                self.collidePoint(event.pos[0], event.pos[1])
+                # self.moveON(self.x,self.y)
 
-    def collidePoint(self):
-        if self.x>e.pos[0]<self.x+self.width and self.y>e.pos[1]<self.y+self.height:
+
+    def collidePoint(self,mouse_x, mouse_y):
+        if x>e.pos[0]<x+self.width and y<e.pos[1]>y+self.height: !!!
             print("True")
         else:
             print("False")
 
-    def moveON(self):
-         for e in pygame.event.get():
-            if e.type == pygame.MOUSEBUTTONDOWN:
-                if e.button == 1:
-                    self.x=self.x+e.rel[0]
-                    self.y=self.y+e.rel[1]
+    # def moveON(self,x,y):
+    #                 self.x=x+e.rel[0]
+    #                 self.y=y+e.rel[1]
 
     def render(self,screen):
         screen.blit(self.image,self.rect)
@@ -55,6 +54,6 @@ while x!=1:
     display.fill((55,00,99))
     block1.render(display)
     # block2.render(display)
-    block1.collidePoint()
+
 
     pygame.display.flip()
