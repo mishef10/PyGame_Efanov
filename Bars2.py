@@ -17,13 +17,14 @@ class Block:
 
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
+
             if event.button == 1:
                 self.collidePoint(event.pos[0], event.pos[1])
                 # self.moveON(self.x,self.y)
 
-
+    #111
     def collidePoint(self,mouse_x, mouse_y):
-        if self.x<mouse_x<self.x+self.width and self.y<mouse_y>self.y-self.height:
+        if self.x<mouse_x<self.x+self.width and self.y<mouse_y<self.y+self.height:
             print("True")
         else:
             print("False")
@@ -37,7 +38,7 @@ class Block:
 
 pygame.init() #инициализация
 display = pygame.display.set_mode((400,400)) #создание окна
-block1=Block((10,10),100,100,(0,100,0))
+block1=Block((50,60),100,100,(0,100,0))
 # block2=Block((80,80),30,30,(44,44,44))
 x=0
 while x!=1:
