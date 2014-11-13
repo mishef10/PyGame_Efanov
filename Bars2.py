@@ -23,7 +23,7 @@ class Block:
 
 
     def collidePoint(self,mouse_x, mouse_y):
-        if x>e.pos[0]<x+self.width and y<e.pos[1]>y+self.height: !!!
+        if self.x<mouse_x<self.x+self.width and self.y<mouse_y>self.y-self.height:
             print("True")
         else:
             print("False")
