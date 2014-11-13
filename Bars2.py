@@ -11,27 +11,35 @@ class Block:
         self.rect = self.image.get_rect()
         self.rect.x = coords[0]
         self.rect.y = coords[1]
+        self.drag = False
 
     def draw(self):
         pygame.draw.rect(self.image, self.color, ((0,0),(self.width,self.height)))
 
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
-
             if event.button == 1:
-                self.collidePoint(event.pos[0], event.pos[1])
-                # self.moveON(self.x,self.y)
+                # flag=True
+                if self.collidePoint(event.pos[0], event.pos[1]) == True:
+                    self.drag = True
+                    print("Flag True")
+        if event.type==pygame.MOUSEMOTION:
+            if self.drag==True:
+                self.moveON(event.rel[0],event.rel[0])
 
-    #111
+
     def collidePoint(self,mouse_x, mouse_y):
         if self.x<mouse_x<self.x+self.width and self.y<mouse_y<self.y+self.height:
+            flag2=True
             print("True")
+            return True
         else:
             print("False")
+            return False
 
-    # def moveON(self,x,y):
-    #                 self.x=x+e.rel[0]
-    #                 self.y=y+e.rel[1]
+    def moveON(self,move_x,move_y):
+        self.rect.x+=move_x
+        self.rect.y+=move_y
 
     def render(self,screen):
         screen.blit(self.image,self.rect)
@@ -50,6 +58,8 @@ while x!=1:
         if e.type == pygame.QUIT:
             x=1
         if e.type == pygame.MOUSEBUTTONDOWN:
+            block1.events(e)
+        elif e.type == pygame.MOUSEMOTION:
             block1.events(e)
 
     display.fill((55,00,99))
