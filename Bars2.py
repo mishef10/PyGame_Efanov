@@ -21,7 +21,7 @@ class Block:
                 self.collidePoint(event.pos[0], event.pos[1])
                 # self.moveON(self.x,self.y)
 
-
+    #111
     def collidePoint(self,mouse_x, mouse_y):
         if self.x<mouse_x<self.x+self.width and self.y<mouse_y>self.y-self.height:
             print("True")
