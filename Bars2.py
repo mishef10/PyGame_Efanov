@@ -36,7 +36,7 @@ class Block:
         if event.type == pygame.MOUSEBUTTONUP:
             self.drag = False
         if event.type==pygame.MOUSEMOTION:
-            if self.drop==True: 
+            if self.drop==True:
             if self.drag==True:
                 self.moveON(event.rel[0],event.rel[1])
                 self.DragDrop(event.pos[0], event.pos[1],event.rel[0],event.rel[1])
