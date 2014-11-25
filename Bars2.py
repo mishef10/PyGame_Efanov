@@ -8,14 +8,24 @@ class Block:
         self.color = color
         self.color2 = (100,0,0)
         self.image = pygame.Surface((width, height))
-        self.draw()
         self.rect = self.image.get_rect()
         self.rect.x = coords[0]
         self.rect.y = coords[1]
         self.drag = False
+        self.drop = False
+        self.widthDrag = 10
+        self.heightDrag = 10
+        self.rectDragX = self.width-self.widthDrag
+        self.rectDragY = self.height-self.heightDrag
+        # print(self.rectDragX)
+        # print(self.rectDragY)
+        # print(self.rect.w, self.rect.h)
+        self.colorDrag = (255,0,0)
+        self.draw()
 
     def draw(self):
         pygame.draw.rect(self.image, self.color, ((0,0),(self.width,self.height)))
+        pygame.draw.rect(self.image,self.colorDrag,((self.rectDragX,self.rectDragY),(self.widthDrag,self.heightDrag)))
 
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -26,11 +36,14 @@ class Block:
         if event.type == pygame.MOUSEBUTTONUP:
             self.drag = False
         if event.type==pygame.MOUSEMOTION:
+            if self.drop==True: 
             if self.drag==True:
                 self.moveON(event.rel[0],event.rel[1])
+                self.DragDrop(event.pos[0], event.pos[1],event.rel[0],event.rel[1])
 
     def collidePoint(self,mouse_x, mouse_y):
-
+        if self.rectDragX<mouse_x<self.rectDragX+self.widthDrag and self.rectDragY<mouse_y<self.rectDragY+self.heightDrag:
+            self.drop=True
         if self.rect.x<mouse_x<self.rect.x+self.width and self.rect.y<mouse_y<self.rect.y+self.height:
             color=self.color
             self.color=self.color2
@@ -44,10 +57,17 @@ class Block:
         self.rect.x+=move_x
         self.rect.y+=move_y
 
+    def DragDrop(self,mouse_x,mouse_y,move_x,move_y):
+
+            self.width=self.width+move_x
+            self.height=self.height+move_y
+
 
 
     def render(self,screen):
         screen.blit(self.image,self.rect)
+
+
 
 pygame.init() #инициализация
 display = pygame.display.set_mode((400,400)) #создание окна
@@ -69,7 +89,7 @@ while x!=1:
             block1.events(e)
 
     display.fill((55,00,99))
-    block1.draw()
+
     block1.render(display)
     # block2.render(display)
 
