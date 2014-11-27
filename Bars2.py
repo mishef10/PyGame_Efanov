@@ -17,8 +17,7 @@ class Block:
         self.heightDrag = 10
         self.rectDragX = self.width-self.widthDrag
         self.rectDragY = self.height-self.heightDrag
-        # print(self.rectDragX)
-        # print(self.rectDragY)
+
         # print(self.rect.w, self.rect.h)
         self.colorDrag = (255,0,0)
         self.draw()
@@ -30,6 +29,11 @@ class Block:
     def events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
+                print(event.pos[0],event.pos[1])
+                print(self.rectDragX)
+                print(self.rectDragY)
+                print(self.widthDrag)
+                print(self.heightDrag)
                 if self.collidePoint(event.pos[0], event.pos[1]) == True:
                     self.drag = True
                     print("Flag True")
@@ -37,13 +41,19 @@ class Block:
             self.drag = False
         if event.type==pygame.MOUSEMOTION:
             if self.drop==True:
+                self.DragDrop(event.rel[0],event.rel[1])
             if self.drag==True:
                 self.moveON(event.rel[0],event.rel[1])
-                self.DragDrop(event.pos[0], event.pos[1],event.rel[0],event.rel[1])
+
 
     def collidePoint(self,mouse_x, mouse_y):
+        # Метод принемает позицию мыши и возвращает значчение:
+        # 'True'- мышь находится в прямоугольние,
+        # 'False' - мышь не находистя в прямоугольнике
         if self.rectDragX<mouse_x<self.rectDragX+self.widthDrag and self.rectDragY<mouse_y<self.rectDragY+self.heightDrag:
             self.drop=True
+            print("True")
+            return False
         if self.rect.x<mouse_x<self.rect.x+self.width and self.rect.y<mouse_y<self.rect.y+self.height:
             color=self.color
             self.color=self.color2
@@ -53,14 +63,14 @@ class Block:
             print("False")
             return False
 
+
     def moveON(self,move_x,move_y):
         self.rect.x+=move_x
         self.rect.y+=move_y
 
-    def DragDrop(self,mouse_x,mouse_y,move_x,move_y):
-
-            self.width=self.width+move_x
-            self.height=self.height+move_y
+    def DragDrop(self,move_x,move_y):
+        self.width=self.width+move_x
+        self.height=self.height+move_y
 
 
 
@@ -89,7 +99,7 @@ while x!=1:
             block1.events(e)
 
     display.fill((55,00,99))
-
+    block1.draw()
     block1.render(display)
     # block2.render(display)
 
